@@ -37,10 +37,10 @@ function append2file (file2append, content){
 });
 }
 
-router.post('/record', function(req,res,next)){
-    express.use(bodyParser.json());
-    express.use(bodyParser.urlencoder({ extended : true }));
-    router.use(bodyParser.json());
+router.post('/record', function(req, res, next){
+    //express.use(bodyParser.json());
+    //express.use(bodyParser.urlencoder({ extended : true }));
+    //router.use(bodyParser.json());
     var now = new Date();
     var logfile_name = __dirname+'/../public/logs/' +req.body.id_nodo+ "-"+ now.getFullYear() + "-"+ now.getMonth() + "-" + now.getDate() +'.csv'
 
@@ -60,7 +60,7 @@ router.post('/record', function(req,res,next)){
     });
       //res.render('index', { title: 'Express' });
       res.send("Saving: "+req.body.id_nodo+';'+now.getTime()+";"+req.body.temperatura+";"+req.body.humedad+";"+req.body.co2+";"+req.body.volatiles+" in: "+logfile_name);
-    });
-}
+});
+
 
 module.exports = router;
