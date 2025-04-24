@@ -4,10 +4,6 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var mqtt = require("mqtt");
 
-client.on("connect", ()=> {
-    var now = new Date();
-    client.publish("1;"+now.getTime()+"30;50;20");
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,8 +26,12 @@ router.post('/record', function(req, res, next){
     //express.use(bodyParser.json());
     //express.use(bodyParser.urlencoder({ extended : true }));
     //router.use(bodyParser.json());
-	//
-    var client = new mqtt.connect("mqtt://test.mosquitto.org/ra_g17/sensores");
+    var client = new mqtt.connect("mqtt://test.mosquitto.org:1883");
+    client.subscribe('ra_g17/sensores');
+    client.on("connect", ()=> {
+        var now = new Date();
+        client.publish('ra_g17/sensores','nodo: '+req.body.id_nodo+', timestamp: '+now.getTime()+ ', temperatura: '+req.body.temperatura+', humedad: '+req.body.humedad+', co2: '+req.body.co2+', volatiles: '+req.body.volatiles);
+    });
 
 });
 module.exports = router;

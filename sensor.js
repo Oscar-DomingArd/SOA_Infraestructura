@@ -11,4 +11,5 @@ setInterval(() => {
 		volatiles: Math.floor(Math.random()*101),
 		timestamp: new Date().toISOString()
 	};
+	console.log('Crear http');
 	axios.post('http://localhost:8080/record',sensorData).then(res=>console.log('Sensor envio datos',res.data)).catch(err=>console.error('ERROR: ', err.message));},10000);
