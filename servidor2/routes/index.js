@@ -26,7 +26,7 @@ router.post('/record', function(req, res, next){
     //express.use(bodyParser.json());
     //express.use(bodyParser.urlencoder({ extended : true }));
     //router.use(bodyParser.json());
-    var client = new mqtt.connect("mqtt://test.mosquitto.org:1883");
+    var client = new mqtt.connect("mqtt://localhost:1883");
     client.subscribe('ra_g17/sensores');
     client.on("connect", ()=> {
         var now = new Date();
