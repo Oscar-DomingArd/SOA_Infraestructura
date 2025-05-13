@@ -30,7 +30,7 @@ router.post('/record', function(req, res, next){
     client.subscribe('ra_g17/sensores');
     client.on("connect", ()=> {
         var now = new Date();
-        client.publish('ra_g17/sensores','nodo: '+req.body.id_nodo+', timestamp: '+now.getTime()+ ', temperatura: '+req.body.temperatura+', humedad: '+req.body.humedad+', co2: '+req.body.co2+', volatiles: '+req.body.volatiles);
+        client.publish('ra_g17/sensores','{"nodo": "'+req.body.id_nodo+'", "timestamp": '+now.getTime()+ ', "temperatura": '+req.body.temperatura+', "humedad": '+req.body.humedad+', "co2": '+req.body.co2+', "volatiles": '+req.body.volatiles+'}');
     });
 
 });
