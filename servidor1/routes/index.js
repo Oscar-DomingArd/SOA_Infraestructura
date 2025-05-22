@@ -5,9 +5,10 @@ var bodyParser = require('body-parser');
 var mqtt = require("mqtt");
 const rateLimit = require('express-rate-limit');
 
-const whitelist = ['10.*.*.*'];
+const whitelist = ['10.*.*.*', '127.0.0.1','::ffff:127.0.0.1', '::ffff:10.*.*.*'];
 router.use((req, res, next) => {
 	if(!whitelist.includes(req.ip)){
+		console.log(req.ip);
 		return res.status(403).send("IP bloqueada");
 	}
 	next();
