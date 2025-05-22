@@ -3,7 +3,22 @@ var router = express.Router();
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var mqtt = require("mqtt");
+const rateLimit = require('express-rate-limit');
 
+const whitelist = ['10.*.*.*'];
+router.use((req, res, next) => {
+	if(!whitelist.includes(req.ip)){
+		return res.status(403).send("IP bloqueada");
+	}
+	next();
+});
+
+const limiter = rateLimit({
+	windowsMs: 30000,
+	max: 5,
+	message: "Demasiadas peticiones, espera un momento"
+});
+router.use(limiter);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
